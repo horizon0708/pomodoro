@@ -64,6 +64,7 @@ class CountDownTimer {
     }
 }
 let display = '#timer';
+let dur = 25;
 let toaster = new CountDownTimer(25*60, display);
 
 $('#pause').click(function (e) {
@@ -79,16 +80,25 @@ $('#restart').click(function(e){
 });
 
 $('#minusMin').click(function(e){
-    let dur = parseInt($('#duration').html(),10);
-    toaster.changeDuration(dur * 60 - 60);
-    $('#duration').html(dur - 1);
+    if (toaster.isRunning)
+    {
+        return;
+    }    
+    dur--;
+    toaster.changeDuration(dur * 60);
+    $('#timer').html(dur+":00");
 });
 $('#plusMin').click(function(e){
-    let dur = parseInt($('#duration').html(),10);
-    toaster.changeDuration(dur * 60 + 60);
-    $('#duration').html(dur + 1);
+    if (toaster.isRunning)
+    {
+        return;
+    }
+    dur++   
+    toaster.changeDuration(dur * 60);
+    $('#timer').html(dur+":00");
 });
 
 $('#start').click(function(e){
     toaster.start();
 });
+
